@@ -10,6 +10,7 @@ namespace Washi.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<Statistic> Statistics { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
@@ -34,6 +35,15 @@ namespace Washi.API.Domain.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //Statistics Entity
+            builder.Entity<Statistic>().ToTable("Statistics");
+            builder.Entity<Statistic>()
+                .HasOne(s => s.User)
+                .WithOne(u => u.Statistics)
+                .HasForeignKey<User>(u => u.StatisticsId);
+            builder.Entity<Statistic>().HasKey(s => s.Id);
+            builder.Entity<Statistic>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
 
             //User Entity
             builder.Entity<User>().ToTable("Users");
