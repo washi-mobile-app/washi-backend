@@ -15,10 +15,6 @@ namespace Washi.API.Domain.Models
         public List<UserSubscription> UserSubscriptions { get; set; }
         public List<Order> Orders { get; set; }
         public List<LaundryServiceMaterial> LaundryServiceMaterials { get; set; }
-        
-        public Statistic Statistics { get; set; }
-        public int StatisticsId { get; set; }
-
         //Authentication
         [JsonIgnore]
         public string Password { get; set; }
