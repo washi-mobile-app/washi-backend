@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'WashiAPI'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5f48cd2a94f94196863916c455b27118 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_998139cc31534fc798f043b2f40e66cc }}
         package: .
