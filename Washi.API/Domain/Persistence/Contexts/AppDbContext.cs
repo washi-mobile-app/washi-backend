@@ -14,6 +14,7 @@ namespace Washi.API.Domain.Persistence.Contexts
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Detergent> Detergent { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<ServiceMaterial> ServiceMaterials { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
@@ -223,6 +224,13 @@ namespace Washi.API.Domain.Persistence.Contexts
                     new ServiceMaterial { Id = 17, ServiceId = 4, MaterialId = 7 },
                     new ServiceMaterial { Id = 18, ServiceId = 4, MaterialId = 2 }
                 );
+            //Detergent Entity
+            builder.Entity<Detergent>().ToTable("Detergents");
+            builder.Entity<Detergent>().HasKey(d => d.Id);
+            builder.Entity<Detergent>()
+                .HasOne(d => d.User)
+                .WithMany(u => u.Detergents)
+                .HasForeignKey(d => d.UserId);
             //LaundryServiceMaterial Entity
             builder.Entity<LaundryServiceMaterial>().ToTable("LaundrySMs");
             builder.Entity<LaundryServiceMaterial>().HasKey(lsm => lsm.Id);
@@ -378,6 +386,7 @@ namespace Washi.API.Domain.Persistence.Contexts
             builder.Entity<OrderDetail>().ToTable("OrderDetails");
             builder.Entity<OrderDetail>().HasKey(od => od.Id);
             builder.Entity<OrderDetail>().HasOne(od => od.Order).WithMany(o => o.OrderDetails).HasForeignKey(o => o.OrderId);
+            builder.Entity<OrderDetail>().HasOne(od => od.Detergent).WithMany(d => d.OrderDetails).HasForeignKey(o => o.DetergentId);
             builder.Entity<OrderDetail>().HasOne(od => od.LaundryServiceMaterial).WithMany(lsm => lsm.OrderDetails).HasForeignKey(od => od.LaundryServiceMaterialId);
             builder.Entity<OrderDetail>().Property(od => od.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<OrderDetail>().HasData
