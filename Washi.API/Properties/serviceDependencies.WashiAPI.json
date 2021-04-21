@@ -1,8 +1,3 @@
 {
-  "dependencies": {
-    "apis1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/WashiAPIapi/apis/WashiAPI",
-      "type": "apis.azure"
-    }
-  }
+  "dependencies": {}
 }
