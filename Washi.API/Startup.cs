@@ -45,7 +45,7 @@ namespace Washi.API
             //DB Context
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseMySQL(Configuration.GetConnectionString("LocalHost"));
             });
             //Scoped Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -8,7 +8,8 @@ namespace Washi.API.Domain.Repositories
 {
     public interface IDetergentRepository
     {
-        Task<IEnumerable<Detergent>> ListByUserIdAsync(int userId);
+        Task<Detergent> FindByIdAsync(int id);
+        Task<IEnumerable<Detergent>> ListByUserIdAsync(int laundryId);
         Task<IEnumerable<Detergent>> ListAsync();
         Task AddAsync(Detergent detergent);
         void Update(Detergent detergent);

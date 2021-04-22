@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Washi.API.Resources
 {
-    public class SaveOrderDetailResource
+    public class SaveDetergentResource
     {
         [Required]
-        public int OrderId { get; set; }
+        [MaxLength(50)]
+        public string Name { get; set; }
         [Required]
-        public int LaundryServiceMaterialId { get; set; }
+        public float Price { get; set; }
         [Required]
-        public int DetergentId { get; set; }
-        public int Rating { get; set; }
+        public int UserId { get; set; }
     }
 }
