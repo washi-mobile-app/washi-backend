@@ -10,6 +10,7 @@ namespace Washi.API.Resources
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int LaundryServiceMaterialId { get; set; }
+        public int DetergentId { get; set; }
         public int Rating { get; set; }
     }
 }

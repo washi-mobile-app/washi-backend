@@ -21,6 +21,11 @@ namespace Washi.API.Persistence.Repositories
             await _context.Detergent.AddAsync(detergent);
         }
 
+        public async Task<Detergent> FindByIdAsync(int id)
+        {
+            return await _context.Detergent.FindAsync(id); 
+        }
+
         public async Task<IEnumerable<Detergent>> ListAsync()
         {
             var detergent = await _context.Detergent.ToListAsync();

@@ -45,7 +45,7 @@ namespace Washi.API
             //DB Context
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("LocalHost"));
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
             });
             //Scoped Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -68,6 +68,7 @@ namespace Washi.API
             services.AddScoped<IServiceMaterialRepository, ServiceMaterialRepository>();
             services.AddScoped<ILaundryServiceMaterialRepository, LaundryServiceMaterialRepository>();
             services.AddScoped<IPromotionRepository, PromotionRepository>();
+            services.AddScoped<IDetergentRepository, DetergentRepository>();
             //Scoped Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPaymentMethodService, PaymentMethodService>();
@@ -88,6 +89,7 @@ namespace Washi.API
             services.AddScoped<IServiceMaterialService, ServiceMaterialService>();
             services.AddScoped<ILaundryServiceMaterialService, LaundryServiceMaterialService>();
             services.AddScoped<IPromotionService, PromotionService>();
+            services.AddScoped<IDetergentService, DetergentService>();
             //Mapper
             services.AddAutoMapper(typeof(Startup));
 

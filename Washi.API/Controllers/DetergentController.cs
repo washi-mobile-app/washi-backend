@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,10 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Washi.API.Domain.Models;
 using Washi.API.Domain.Services;
+using Washi.API.Extensions;
 using Washi.API.Resources;
 
 namespace Washi.API.Controllers
 {
+    [Route("/api")]
     public class DetergentController : Controller
     {
         private readonly IDetergentService _detergentService;
@@ -41,7 +43,7 @@ namespace Washi.API.Controllers
         [HttpGet("detergent/{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _detergentService.GetById(id);
+            var result = await _detergentService.GetByIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
             var detergentResource = _mapper
@@ -59,9 +61,9 @@ namespace Washi.API.Controllers
         }
 
         [HttpGet("laundries/{laundryId}/detergents")]
-        public async Task<IEnumerable<DetergentResource>> GetAllLaundryServicesMaterialsByLaundryIdAsync(int laundryId)
+        public async Task<IEnumerable<DetergentResource>> GetAllDetergentsByLaundryIdAsync(int laundryId)
         {
-            var detergents = await _detergentService.ListLaundryServicesMaterialsByLaundryIdAsync(laundryId);
+            var detergents = await _detergentService.ListByUserIdAsync(laundryId);
             var resources = _mapper
                 .Map<IEnumerable<Detergent>, IEnumerable<DetergentResource>>(detergents);
             return resources;

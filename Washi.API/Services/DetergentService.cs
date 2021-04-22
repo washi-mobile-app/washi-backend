@@ -15,6 +15,28 @@ namespace Washi.API.Services
         private readonly IDetergentRepository _detergentRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+
+        public DetergentService(IDetergentRepository detergentRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
+        {
+            _detergentRepository = detergentRepository;
+            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<DetergentResponse> AddAsync(Detergent detergent)
+        {
+            try
+            {
+                await _detergentRepository.AddAsync(detergent);
+                await _unitOfWork.CompleteAsync();
+                return new DetergentResponse(detergent);
+            }
+            catch (Exception ex)
+            {
+                return new DetergentResponse($"An error ocurred while saving the order detail: {ex.Message}");
+            }
+        }
+
         public async Task<DetergentResponse> DeleteAsync(int id)
         {
             var existingDetergent = await _detergentRepository.FindByIdAsync(id);
@@ -50,25 +72,15 @@ namespace Washi.API.Services
             return await _detergentRepository.ListByUserIdAsync(LaundryId);
         }
 
-        public async Task<DetergentResponse> SaveAsync(Detergent detergent)
-        {
-            try
-            {
-                await _detergentRepository.AddAsync(detergent);
-                await _unitOfWork.CompleteAsync();
-                return new DetergentResponse(detergent);
-            }
-            catch (Exception ex)
-            {
-                return new DetergentResponse($"An error ocurred while saving the order detail: {ex.Message}");
-            }
-        }
-
         public async Task<DetergentResponse> UpdateAsync(int id, Detergent detergent)
         {
             var existingDetergent = await _detergentRepository.FindByIdAsync(id);
             if (existingDetergent == null)
                 return new DetergentResponse("Order Detail not found");
+
+            existingDetergent.Name = detergent.Name;
+            existingDetergent.Price = detergent.Price;
+            existingDetergent.UserId = detergent.UserId;
 
             try
             {

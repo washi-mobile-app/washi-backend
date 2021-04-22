@@ -13,6 +13,7 @@ namespace Washi.API.Domain.Models
         public LaundryServiceMaterial LaundryServiceMaterial { get; set; }
         public int LaundryServiceMaterialId { get; set; }
         public Detergent Detergent { get; set; } 
+        public int DetergentId { get; set; }
         public byte Rating { get; set; }
     }
 }
