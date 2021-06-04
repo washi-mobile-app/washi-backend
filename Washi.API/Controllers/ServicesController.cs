@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -13,6 +14,7 @@ using Washi.API.Resources;
 
 namespace Washi.API.Controllers
 {
+    [Authorize]
     [Route("/api/[controller]")]
     public class ServicesController:Controller
     {

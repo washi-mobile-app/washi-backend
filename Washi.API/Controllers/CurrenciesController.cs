@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using Washi.API.Resources;
 namespace Washi.API.Controllers
 {
     //[Microsoft.AspNetCore.Mvc.Route("/api/[controller]")]
+    [Authorize]
     public class CurrenciesController:Controller
     {
         private readonly ICurrencyService _currencyService;

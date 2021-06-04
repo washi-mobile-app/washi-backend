@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -15,6 +16,7 @@ namespace Washi.API.Controllers
 {
     //[Microsoft.AspNetCore.Authorization.Authorize]
     [Route("/api/[controller]")]
+    [Authorize]
     public class PaymentMethodsController:Controller
     {
         private readonly IPaymentMethodService _paymentMethodService;

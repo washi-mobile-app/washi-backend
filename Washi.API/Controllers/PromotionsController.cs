@@ -10,10 +10,12 @@ using Washi.API.Domain.Services;
 using Washi.API.Extensions;
 using Washi.API.Resources;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Washi.API.Controllers
 {
     [Route("/api/[controller]")]
+    [Authorize]
     public class PromotionsController : Controller
     {
         private readonly IPromotionService _promotionService;

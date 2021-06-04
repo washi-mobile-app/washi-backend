@@ -12,6 +12,7 @@ using Washi.API.Resources;
 namespace Washi.API.Controllers
 {
     [Route("/api")]
+    [Authorize]
     public class LaundryServiceMaterialsController : Controller
     {
         private readonly ILaundryServiceMaterialService _laundryServiceMaterialService;

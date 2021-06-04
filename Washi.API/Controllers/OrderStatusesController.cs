@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,6 +15,7 @@ namespace Washi.API.Controllers
 {
     //[Microsoft.AspNetCore.Authorization.Authorize]
     [Microsoft.AspNetCore.Mvc.Route("/api/[controller]")]
+    [Authorize]
     public class OrderStatusesController : Controller
     {
         private readonly IOrderStatusService _orderStatusService;

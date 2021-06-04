@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using Washi.API.Resources;
 namespace Washi.API.Controllers
 {
     //[Microsoft.AspNetCore.Mvc.Route("/api/countries/{countryId}/departments")]
+    [Authorize]
     public class CountryDepartmentsController
     {
         private readonly IDepartmentService _departmentService;

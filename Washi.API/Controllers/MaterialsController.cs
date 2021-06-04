@@ -14,6 +14,7 @@ using Washi.API.Resources;
 namespace Washi.API.Controllers
 {
     [Route("/api/[controller]")]
+    [Authorize]
     public class MaterialsController:Controller
     {
         private readonly IMaterialService _materialService;

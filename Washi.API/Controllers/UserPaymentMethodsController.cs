@@ -11,6 +11,7 @@ using Washi.API.Resources;
 
 namespace Washi.API.Controllers
 {
+    [Authorize]
     [Route("/api/users/{userId}/paymentmethods")]
     public class UserPaymentMethodsController : Controller
     {

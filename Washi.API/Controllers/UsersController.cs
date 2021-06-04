@@ -37,6 +37,7 @@ namespace Washi.API.Controllers
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        [Authorize]
         public async Task<IEnumerable<UserResource>> GetAllAsync()
         {
             var users = await _userService.ListAsync();
@@ -46,6 +47,7 @@ namespace Washi.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _userService.GetByIdAsync(id);
@@ -57,6 +59,7 @@ namespace Washi.API.Controllers
         }
 
         [HttpGet("email/{email}")]
+        [Authorize]
         public async Task<IActionResult> GetByEmailAsync(string email)
         {
             var result = await _userService.FindByEmail(email);
@@ -85,6 +88,7 @@ namespace Washi.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveUserResource resource)
         {
             var user = _mapper.Map<SaveUserResource, User>(resource);
@@ -98,6 +102,7 @@ namespace Washi.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _userService.DeleteAsync(id);

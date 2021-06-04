@@ -12,6 +12,7 @@ using Washi.API.Resources;
 namespace Washi.API.Controllers
 {
     [Route("/api")]
+    [Authorize]
     public class ServiceMaterialsController: Controller
     {
         private readonly IServiceMaterialService _serviceMaterialService;

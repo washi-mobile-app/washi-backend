@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI.Common;
 using System;
+using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Washi.API.Controllers
 {
     //[Microsoft.AspNetCore.Authorization.Authorize]
     [Microsoft.AspNetCore.Mvc.Route("/api/[controller]")]
+    [Authorize]
     public class OrderDetailsController:Controller
     {
         private readonly IOrderDetailService _orderDetailService;
