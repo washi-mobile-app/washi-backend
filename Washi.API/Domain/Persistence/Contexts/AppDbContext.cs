@@ -14,6 +14,7 @@ namespace Washi.API.Domain.Persistence.Contexts
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<UserPaymentMethod> UserPaymentMethods { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Detergent> Detergent { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<ServiceMaterial> ServiceMaterials { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
@@ -223,6 +224,28 @@ namespace Washi.API.Domain.Persistence.Contexts
                     new ServiceMaterial { Id = 17, ServiceId = 4, MaterialId = 7 },
                     new ServiceMaterial { Id = 18, ServiceId = 4, MaterialId = 2 }
                 );
+            //Detergent Entity
+            builder.Entity<Detergent>().ToTable("Detergents");
+            builder.Entity<Detergent>().HasKey(d => d.Id);
+            builder.Entity<Detergent>()
+                .HasOne(d => d.User)
+                .WithMany(u => u.Detergents)
+                .HasForeignKey(d => d.UserId);
+            builder.Entity<Detergent>().HasData
+                (
+                    new Detergent { Id = 1, Name = "Ace", Price=2F, UserId=1 },
+                    new Detergent { Id = 2, Name = "Ariel", Price=1F, UserId=1 },
+                    new Detergent { Id = 3, Name = "Dash", Price=1.5F, UserId=2 },
+                    new Detergent { Id = 4, Name = "Bolivar", Price=1.5F, UserId=2 },
+                    new Detergent { Id = 5, Name = "Sapolio", Price=2F, UserId=3 },
+                    new Detergent { Id = 6, Name = "Magia Blanca", Price=2.5F, UserId=3 },
+                    new Detergent { Id = 7, Name = "Ace", Price=2F, UserId=4 },
+                    new Detergent { Id = 8, Name = "Ariel", Price=1F, UserId=4 },
+                    new Detergent { Id = 9, Name = "Dash", Price=1.5F, UserId=5 },
+                    new Detergent { Id = 10, Name = "Bolivar", Price=1.5F, UserId=5 },
+                    new Detergent { Id = 11, Name = "Sapolio", Price=2F, UserId=6 },
+                    new Detergent { Id = 12, Name = "Magia Blanca", Price=2.5F, UserId=6 }
+                );
             //LaundryServiceMaterial Entity
             builder.Entity<LaundryServiceMaterial>().ToTable("LaundrySMs");
             builder.Entity<LaundryServiceMaterial>().HasKey(lsm => lsm.Id);
@@ -378,13 +401,14 @@ namespace Washi.API.Domain.Persistence.Contexts
             builder.Entity<OrderDetail>().ToTable("OrderDetails");
             builder.Entity<OrderDetail>().HasKey(od => od.Id);
             builder.Entity<OrderDetail>().HasOne(od => od.Order).WithMany(o => o.OrderDetails).HasForeignKey(o => o.OrderId);
+            builder.Entity<OrderDetail>().HasOne(od => od.Detergent).WithMany(d => d.OrderDetails).HasForeignKey(o => o.DetergentId);
             builder.Entity<OrderDetail>().HasOne(od => od.LaundryServiceMaterial).WithMany(lsm => lsm.OrderDetails).HasForeignKey(od => od.LaundryServiceMaterialId);
             builder.Entity<OrderDetail>().Property(od => od.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<OrderDetail>().HasData
                 (
-                    new OrderDetail { Id = 1, OrderId = 1, LaundryServiceMaterialId = 1, Rating = 5 },
-                    new OrderDetail { Id = 2, OrderId = 1, LaundryServiceMaterialId = 2, Rating = 3 },
-                    new OrderDetail { Id = 3, OrderId = 2, LaundryServiceMaterialId = 1, Rating = 4 }
+                    new OrderDetail { Id = 1, OrderId = 1, DetergentId = 1, LaundryServiceMaterialId = 1, Rating = 5 },
+                    new OrderDetail { Id = 2, OrderId = 1, DetergentId = 2, LaundryServiceMaterialId = 2, Rating = 3 },
+                    new OrderDetail { Id = 3, OrderId = 2, DetergentId = 3, LaundryServiceMaterialId = 1, Rating = 4 }
                 );
             //Promotion Entity
             builder.Entity<Promotion>().ToTable("Promotions");

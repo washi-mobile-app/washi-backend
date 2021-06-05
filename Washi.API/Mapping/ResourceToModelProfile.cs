@@ -24,6 +24,7 @@ namespace Washi.API.Mapping
             CreateMap<SaveLaundryServiceMaterialResource, LaundryServiceMaterial>();
             CreateMap<SavePromotionResource, Promotion>();
             CreateMap<SaveOrderDetailResource, OrderDetail>();
+            CreateMap<SaveDetergentResource, Detergent>();
         }
     }
 }
